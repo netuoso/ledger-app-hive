@@ -1,0 +1,22 @@
+{
+  "ref_block_num": 36029,
+  "ref_block_prefix": 1164960351,
+  "expiration": "2016-08-08T12:24:17",
+  "operations":
+    [
+      [
+        "request_account_recovery",
+        {
+          "recovery_account": "netuoso",
+          "account_to_recover": "netuosoo",
+          "new_owner_authority": {
+              "weight_threshold": 1,
+              "account_auths": [["netuoso", 1]],
+              "key_auths": [["STM7QtTRvd1owAh4uGaC6trxjR9M1cpqfi2WfLQed1GbUGPomt9DP",1]]
+            }
+         }
+      ]
+    ],
+  "extensions": [],
+  "signatures": []
+}

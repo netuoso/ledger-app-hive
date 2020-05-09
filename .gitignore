@@ -1,0 +1,12 @@
+bin
+debug
+dep
+obj
+src/glyphs.c
+src/glyphs.h
+.vscode
+.idea
+
+**/node_modules
+**/.DS_Store
+test/tx.json

@@ -1,0 +1,14 @@
+{
+  "ref_block_num": 34941,
+  "ref_block_prefix": 1479054680,
+  "expiration": "2020-05-10T20:35:51",
+  "operations": [[
+      "account_witness_proxy",{
+        "account": "nettybot",
+        "proxy": "netuoso"
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": []
+}

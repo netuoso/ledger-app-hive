@@ -1,0 +1,16 @@
+{
+  "ref_block_num": 34898,
+  "ref_block_prefix": 3939295900,
+  "expiration": "2020-05-10T20:13:42",
+  "operations": [[
+      "vote",{
+        "voter": "nettybot",
+        "author": "jrcornel",
+        "permlink": "hive-sitting-back-at-previous-support-levels-is-this-a-buy",
+        "weight": 10000
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": []
+}

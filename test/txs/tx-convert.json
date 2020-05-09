@@ -1,0 +1,18 @@
+{
+  "ref_block_num": 36029,
+  "ref_block_prefix": 1164960351,
+  "expiration": "2016-08-08T12:24:17",
+  "operations":
+    [
+      [
+        "convert",
+        {
+          "owner": "netuoso",
+          "requestid": 420,
+          "amount": "69.420 STEEM"
+         }
+      ]
+    ],
+  "extensions": [],
+  "signatures": []
+}

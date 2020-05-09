@@ -1,0 +1,17 @@
+{
+  "ref_block_num": 36029,
+  "ref_block_prefix": 1164960351,
+  "expiration": "2016-08-08T12:24:17",
+  "operations":
+    [
+      [
+        "change_recovery_account",
+        {
+          "account_to_recover": "netuoso2",
+          "new_recovery_account": "netuoso"
+         }
+      ]
+    ],
+  "extensions": [],
+  "signatures": []
+}

@@ -1,0 +1,16 @@
+{
+  "ref_block_num": 34843,
+  "ref_block_prefix": 1663841413,
+  "expiration": "2020-05-10T20:30:57",
+  "operations": [[
+      "transfer",{
+        "from": "nettybot",
+        "to": "netuoso",
+        "amount": "0.001 STEEM",
+        "memo": ""
+      }
+    ]
+  ],
+  "extensions": [],
+  "signatures": []
+}

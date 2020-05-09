@@ -1,0 +1,26 @@
+{
+  "ref_block_num": 36029,
+  "ref_block_prefix": 1164960351,
+  "expiration": "2016-08-08T12:24:17",
+  "operations":
+    [
+      [
+        "account_witness_vote",
+        {
+          "account": "netuoso",
+          "witness": "netuoso",
+          "approve": true
+         }
+      ],
+      [
+        "account_witness_vote",
+        {
+          "account": "netuoso",
+          "witness": "nettybot",
+          "approve": true
+         }
+      ]
+    ],
+  "extensions": [],
+  "signatures": []
+}

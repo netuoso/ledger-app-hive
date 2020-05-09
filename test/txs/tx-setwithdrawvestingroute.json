@@ -1,0 +1,19 @@
+{
+  "ref_block_num": 36029,
+  "ref_block_prefix": 1164960351,
+  "expiration": "2016-08-08T12:24:17",
+  "operations":
+    [
+      [
+        "set_withdraw_vesting_route",
+        {
+          "from_account": "netuoso",
+          "to_account": "nettybot",
+          "percent": "9999",
+          "autovest": false
+         }
+      ]
+    ],
+  "extensions": [],
+  "signatures": []
+}
