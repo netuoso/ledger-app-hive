@@ -3,6 +3,7 @@
 # Hive Application for the Ledger Nano S/X Hardware Wallet
 
 ![hive+ledger](https://images.hive.blog/p/hgjbks2vRxvf3xsYr6qQ7dm31DuBHGui8pKMdEVPxhLfEeEoVMPfUw4xAjxtdUSEeqap4oADpC6WPXFCGw7AAiDMKt)
+*image credit ([@thepeakstudio](https://peakd.com/@thepeakstudio))*
 
 ---
 
@@ -111,3 +112,4 @@ If you encounter an issue while using the ledger-app-hive application on a Ledge
 ---
 
 ![](https://images.hive.blog/p/hgjbks2vRxvf3xsYr6qQ7dm31DuBHGui8pKMdEVPxhLfEeEoVMPfUw4xAjxtdUSEerJF6cjZhazwMZtMZ5WLjrAqxz)
+*image credit ([@doze](https://peakd.com/@doze))*
