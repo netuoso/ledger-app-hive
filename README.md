@@ -2,7 +2,7 @@
 
 # Hive Application for the Ledger Nano S/X Hardware Wallet
 
-![hive+ledger](https://i.imgur.com/8FyuwJw.png)
+![hive+ledger](https://images.hive.blog/p/hgjbks2vRxvf3xsYr6qQ7dm31DuBHGui8pKMdEVPxhLfEeEoVMPfUw4xAjxtdUSEeqap4oADpC6WPXFCGw7AAiDMKt)
 
 ---
 
@@ -25,7 +25,7 @@ There is a pre-compiled binary available in the bin/ folder and attached to each
 - Start the Docker container
     - `./run.sh start`
 - Build the ledger-app-hive application
-    - `./run.sh build`
+    - `./run.sh build VERSION` # replace VERSION with 1.4,1.5,1.6 based on your Ledger Nano S firmware
 
 ## Building and loading the App with Ledger-Vagrant
 This works only for  Ledger Nano S with 1.6.x Firmware installed.
@@ -69,20 +69,18 @@ vagrant halt
 ```
 
 ## Loading the Development App on a Ledger Nano S
-- *you must use Python 3.7 for loading*
 - Connect the Ledger Nano S to your computer
-- Install the Ledger python module
+- Install the Ledger python3 module
     - `pip install ledgerblue`
 - Load the application onto the Ledger Nano S
-    - `./run.sh load`
+    - `./run.sh load VERSION` # replace VERSION with 1.4,1.5,1.6 based on your Ledger Nano S firmware
 
 ## Testing the Application
-- *you must use Python 2.7 for these scripts*
 - Navigate to the test directory
     - `cd test`
-- Run the `getPublicKey.py` script
+- Run the `getPublicKey.py` script **python3 required**
     - `python getPublicKey.py`
-- Run the `signTransaction.py` script
+- Run the `signTransaction.py` script **python2 required**
     - `python signTransaction.py`
 
 ## Example Testing Output
@@ -109,3 +107,7 @@ If you are interested in contributing the to ledger-app-hive repository, you wil
 
 ## Bug Reports
 If you encounter an issue while using the ledger-app-hive application on a Ledger Nano S/X Device, visit the [issues pages](https://github.com/netuoso/ledger-app-hive/issues) and leave a detailed issue with all necessary information to assist with debugging.
+
+---
+
+![](https://images.hive.blog/p/hgjbks2vRxvf3xsYr6qQ7dm31DuBHGui8pKMdEVPxhLfEeEoVMPfUw4xAjxtdUSEerJF6cjZhazwMZtMZ5WLjrAqxz)
