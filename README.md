@@ -27,6 +27,13 @@ There is a pre-compiled binary available in the bin/ folder and attached to each
 - Build the ledger-app-hive application
     - `./run.sh build VERSION` # replace VERSION with 1.4,1.5,1.6 based on your Ledger Nano S firmware
 
+## Loading the Compiled Development App on a Ledger Nano S
+- Connect the Ledger Nano S to your computer
+- Install the Ledger python3 module
+    - `pip install ledgerblue`
+- Load the application onto the Ledger Nano S
+    - `./run.sh load VERSION` # replace VERSION with 1.4,1.5,1.6 based on your Ledger Nano S firmware
+
 ## Building and loading the App with Ledger-Vagrant
 This works only for  Ledger Nano S with 1.6.x Firmware installed.
 To use it, you will need [Vagrant](https://www.vagrantup.com) and [VirtualBox](https://www.virtualbox.org).
@@ -67,13 +74,6 @@ The following shuts down the machine (from the host)
 ```
 vagrant halt
 ```
-
-## Loading the Development App on a Ledger Nano S
-- Connect the Ledger Nano S to your computer
-- Install the Ledger python3 module
-    - `pip install ledgerblue`
-- Load the application onto the Ledger Nano S
-    - `./run.sh load VERSION` # replace VERSION with 1.4,1.5,1.6 based on your Ledger Nano S firmware
 
 ## Testing the Application
 - Navigate to the test directory
