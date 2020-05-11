@@ -1,10 +1,12 @@
 #!/bin/bash
 
+source /ledgerdev/virtualenv/bin/activate
+
 export APP_DIR="/ledger-app-hive/"
 export BOLOS_SDK="/ledgerdev/nanos-secure-sdk"
 export BOLOS_ENV="/ledgerdev/bolosenv/"
-export CLANGPATH="/usr/bin/"
-export GCCPATH="/usr/bin/"
+export GCCPATH=/opt/bolos/gcc-arm-none-eabi-5_3-2016q1
+export CLANGPATH=/opt/bolos/clang-arm-fropi
 
 build() {
 	cd $APP_DIR
