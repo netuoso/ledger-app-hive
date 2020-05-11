@@ -27,6 +27,47 @@ There is a pre-compiled binary available in the bin/ folder and attached to each
 - Build the ledger-app-hive application
     - `./run.sh build`
 
+## Building and loading the App with Ledger-Vagrant
+This works only for  Ledger Nano S with 1.6.x Firmware installed.
+To use it, you will need [Vagrant](https://www.vagrantup.com) and [VirtualBox](https://www.virtualbox.org).
+For USB passthrough, VirtualBox Extension Pack should also be installed.
+
+```
+git clone https://github.com/christophersanborn/ledger-vagrant
+cd ledger-vagrant
+vagrant up
+```
+You can now connect with
+```
+vagrant ssh
+```
+You need the following packages
+```
+sudo apt-get install libsecp256k1-dev  libffi-dev automake libgmp-dev  build-essential libtool python3-pkgconfig
+SECP_BUNDLED_EXPERIMENTAL=1 python3 -m pip --no-cache-dir install --no-binary secp256k1 secp256k1
+pip3 install ledgerblue
+```
+Clone the source code with:
+```
+cd apps/
+git clone https://github.com/netuoso/ledger-app-hive
+```
+and compile it with:
+```
+cd apps/ledger-app-hive
+make clean
+make
+```
+Connect your Nano S and enter your pin. Now you can upload the app with:
+```
+make load
+```
+A `make delete` removes it again.
+The following shuts down the machine (from the host)
+```
+vagrant halt
+```
+
 ## Loading the Development App on a Ledger Nano S
 - *you must use Python 3.7 for loading*
 - Connect the Ledger Nano S to your computer
