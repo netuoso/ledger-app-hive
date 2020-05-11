@@ -28,6 +28,7 @@ There is a pre-compiled binary available in the bin/ folder and attached to each
     - `./run.sh build`
 
 ## Building and loading the App with Ledger-Vagrant
+This works only for  Ledger Nano S with 1.6.x Firmware installed.
 To use it, you will need [Vagrant](https://www.vagrantup.com) and [VirtualBox](https://www.virtualbox.org).
 For USB passthrough, VirtualBox Extension Pack should also be installed.
 
