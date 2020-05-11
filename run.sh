@@ -251,7 +251,7 @@ load() {
     SIZEARG="--dataSize $DATASIZE"
   fi
 
-  python3 -m ledgerblue.loadApp --appFlags 0x240 --path "48'/13'" --curve secp256k1 --tlv --targetId $TARGET_ID --delete --fileName $DIR/bin/app-$1.hex --appName Hive --appVersion 1.0.0 --icon $ICONHEX $SIZEARG &&
+  python3 -m ledgerblue.loadApp --appFlags 0x240 --path "48'/13'" --curve secp256k1 --tlv --targetId $TARGET_ID --targetVersion=$1.0 --delete --fileName $DIR/bin/app-$1.hex --appName Hive --appVersion 1.0.0 --icon $ICONHEX $SIZEARG &&
   msg green "Successfuly loaded application onto Ledger Device ..." ||
   msg red "Error loading application onto Ledger Device. Did you cancel the install or forget to install the 'ledgerblue' python module? ..."
 }
