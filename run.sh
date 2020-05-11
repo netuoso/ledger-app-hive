@@ -185,11 +185,19 @@ status() {
 build() {
   msg green "Building ledger-app-hive inside container ..."
   if container_running; then
-    docker exec ledger-app-hive bash -c "cd /ledger-app-hive && make" &&
-    msg bold "Copying ledger-app-hive application to host..."
-    docker cp ledger-app-hive:/ledger-app-hive/bin/app.hex $DIR/bin/ &&
-    docker cp ledger-app-hive:/ledger-app-hive/debug/app.map $DIR/debug/ &&
-    msg green "Finished building ledger-app-hive application..."
+    case $1 in
+      1.[4-6])
+        docker exec ledger-app-hive bash -cl "/ledger-app-hive/build-hive.sh $1" &&
+        msg bold "Copying ledger-app-hive application to host..." &&
+        docker cp ledger-app-hive:/ledger-app-hive/bin/app.hex $DIR/bin/app-$1.hex &&
+        docker cp ledger-app-hive:/ledger-app-hive/debug/app.map $DIR/debug/app-$1.map &&
+        msg green "Finished building ledger-app-hive application..." ||
+        msg red "Error building ledger-app-hive application..."
+        ;;
+      *)
+        msg red "Unsupported Ledger Nano S firmware. Versions: [1.4, 1.5, 1.6] ..."
+        ;;
+    esac
   else
     msg bold red " -> Container is not running..."
   fi
@@ -216,19 +224,28 @@ update() {
 # Usage: ./run.sh load
 # Load the ledger-app-hive application on a Ledger Device
 load() {
+  # TODO:
   # read user config
   # set target id
   # check for required python 3
   # check for ledgerblue module
   msg green "Loading ledger-app-hive application onto Ledger Device ..."
-  # TARGET_ID="0x31100002" # nano S - firmware 1.3
-  TARGET_ID="0x31100003" # nano S - firmware 1.4
-  # TARGET_ID="0x31100004" # nano S - firmware 1.5
-  # TARGET_ID="0x33000004" # nano X - not working
+  case $1 in
+    1.4)
+      TARGET_ID="0x31100003"
+      ;;
+    1.[5-6])
+      TARGET_ID="0x31100004"
+      ;;
+    *)
+      msg red "Unsupported Ledger Nano S firmware. Versions: [1.4, 1.5, 1.6] ..."
+      exit 1
+      ;;
+  esac
+
   ICONHEX="0100000000ffffff003ff367e667e6c3ccc3cc81998199003f003f81998199c3ccc3cc67e667e63ff3" # hive icon
 
-
-  python -m ledgerblue.loadApp --appFlags 0x240 --path "48'/13'" --curve secp256k1 --tlv --targetId $TARGET_ID --delete --fileName $DIR/bin/app.hex --appName Hive --appVersion 1.0.0 --dataSize `cat $DIR/debug/app.map |grep _nvram_data_size | tr -s ' ' | cut -f2 -d' '` --icon $ICONHEX &&
+  python3 -m ledgerblue.loadApp --appFlags 0x240 --path "48'/13'" --curve secp256k1 --tlv --targetId $TARGET_ID --delete --fileName $DIR/bin/app-$1.hex --appName Hive --appVersion 1.0.0 --dataSize `cat $DIR/debug/app-$1.map |grep _nvram_data_size | tr -s ' ' | cut -f2 -d' '` --icon $ICONHEX &&
   msg green "Successfuly loaded application onto Ledger Device ..." ||
   msg red "Error loading application onto Ledger Device. Did you cancel the install or forget to install the 'ledgerblue' python module? ..."
 }
@@ -259,10 +276,10 @@ case $1 in
     update
     ;;
   load)
-    load
+    load "${@:2}"
     ;;
   build)
-    build
+    build "${@:2}"
     ;;
   clean)
     clean
