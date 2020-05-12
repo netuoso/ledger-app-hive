@@ -233,9 +233,15 @@ load() {
   case $1 in
     1.4)
       TARGET_ID="0x31100003"
+      DATASIZE=`cat $DIR/debug/app-$1.map |grep _nvram_data_size | tr -s ' ' | cut -f2 -d' '`
       ;;
-    1.[5-6])
+    1.5)
       TARGET_ID="0x31100004"
+      DATASIZE=`cat $DIR/debug/app-$1.map |grep _nvram_data_size | tr -s ' ' | cut -f2 -d' '`
+      ;;
+    1.6)
+      TARGET_ID="0x31100004"
+      DATASIZE=$((0x`cat debug/app-$1.map |grep _envram_data | tr -s ' ' | cut -f2 -d' '|cut -f2 -d'x'` - 0x`cat debug/app-$1.map |grep _nvram_data | tr -s ' ' | cut -f2 -d' '|cut -f2 -d'x'`))
       ;;
     *)
       msg red "Unsupported Ledger Nano S firmware. Versions: [1.4, 1.5, 1.6] ..."
@@ -244,8 +250,6 @@ load() {
   esac
 
   ICONHEX="0100000000ffffff003ff367e667e6c3ccc3cc81998199003f003f81998199c3ccc3cc67e667e63ff3" # hive icon
-
-  DATASIZE=`cat $DIR/debug/app-$1.map |grep _nvram_data_size | tr -s ' ' | cut -f2 -d' '`
 
   if [ $DATASIZE ]; then
     SIZEARG="--dataSize $DATASIZE"
