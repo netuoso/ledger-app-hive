@@ -150,7 +150,7 @@ void parseHiveLimitOrderCreate(uint8_t *buffer, uint32_t bufferLength, uint8_t a
     printString(buffer[0] == 0x01 ? "true" : "false", "Fill or Kill", arg);
     if (argNum == 4) return;
 
-    buffer += read; bufferLength -= read;
+    buffer += sizeof(uint8_t); bufferLength -= sizeof(uint8_t);
     parseUint32Field(buffer, bufferLength, "Expiration", arg, &read, &written);
 }
 
@@ -206,16 +206,17 @@ void parseHiveAccountCreate(uint8_t *buffer, uint32_t bufferLength, uint8_t argN
     uint32_t written = 0;
 
     buffer++; // opType byte
-
-    parseAssetField(buffer, sizeof(asset_t), "Amount", arg, &read, &written);
+    
+    parseAssetField(buffer, bufferLength, "Fee", arg, &read, &written);
+    buffer += read; bufferLength -= read;
     if (argNum == 0) return;
 
+    parseStringField(buffer, bufferLength, "Creator", arg, &read, &written);
     buffer += read; bufferLength -= read;
-    parseStringField(buffer, sizeof(asset_t), "Creator", arg, &read, &written);
     if (argNum == 1) return;
 
+    parseStringField(buffer, bufferLength, "New Account Name", arg, &read, &written);
     buffer += read; bufferLength -= read;
-    parseStringField(buffer, sizeof(asset_t), "New Account Name", arg, &read, &written);
     if (argNum == 2) return;
 
     char tmp[128];
@@ -252,7 +253,7 @@ void parseHiveAccountCreate(uint8_t *buffer, uint32_t bufferLength, uint8_t argN
         snprintf(tmp + strlen(tmp), sizeof(tmp) - strlen(tmp), "%s || ", arg->data);
     }
 
-    if( argNum == 2) { // owner auth
+    if( argNum == 3) { // owner auth
         os_memset(arg->data, 0, sizeof(arg->data));
         os_memmove(arg->data, tmp, sizeof(tmp));
         return;
@@ -292,7 +293,7 @@ void parseHiveAccountCreate(uint8_t *buffer, uint32_t bufferLength, uint8_t argN
         snprintf(tmp + strlen(tmp), sizeof(tmp) - strlen(tmp), "%s || ", arg->data);
     }
 
-    if( argNum == 3) { // active auth
+    if( argNum == 4) { // active auth
         os_memset(arg->data, 0, sizeof(arg->data));
         os_memmove(arg->data, tmp, sizeof(tmp));
         return;
@@ -333,7 +334,7 @@ void parseHiveAccountCreate(uint8_t *buffer, uint32_t bufferLength, uint8_t argN
         snprintf(tmp + strlen(tmp), sizeof(tmp) - strlen(tmp), "%s || ", arg->data);
     }
 
-    if( argNum == 4) { // posting auth
+    if( argNum == 5) { // posting auth
         os_memset(arg->data, 0, sizeof(arg->data));
         os_memmove(arg->data, tmp, sizeof(tmp));
         return;
@@ -344,7 +345,7 @@ void parseHiveAccountCreate(uint8_t *buffer, uint32_t bufferLength, uint8_t argN
     parsePublicKeyField(buffer, bufferLength, "Memo Key", arg, &read, &written);
     buffer += read; bufferLength -= read;
 
-    if( argNum == 5) return;
+    if( argNum == 6) return;
 
     os_memset(arg->data, 0, sizeof(arg->data));
 
@@ -358,7 +359,8 @@ void parseHiveAccountUpdate(uint8_t *buffer, uint32_t bufferLength, uint8_t argN
     buffer++; // opType byte
 
     parseStringField(buffer, sizeof(asset_t), "Account", arg, &read, &written);
-    if (argNum == 2) return;
+    buffer += read; bufferLength -= read;
+    if (argNum == 0) return;
 
     char tmp[128];
 
@@ -394,7 +396,7 @@ void parseHiveAccountUpdate(uint8_t *buffer, uint32_t bufferLength, uint8_t argN
         snprintf(tmp + strlen(tmp), sizeof(tmp) - strlen(tmp), "%s || ", arg->data);
     }
 
-    if( argNum == 2) { // owner auth
+    if( argNum == 1) { // owner auth
         os_memset(arg->data, 0, sizeof(arg->data));
         os_memmove(arg->data, tmp, sizeof(tmp));
         return;
@@ -434,7 +436,7 @@ void parseHiveAccountUpdate(uint8_t *buffer, uint32_t bufferLength, uint8_t argN
         snprintf(tmp + strlen(tmp), sizeof(tmp) - strlen(tmp), "%s || ", arg->data);
     }
 
-    if( argNum == 3) { // active auth
+    if( argNum == 2) { // active auth
         os_memset(arg->data, 0, sizeof(arg->data));
         os_memmove(arg->data, tmp, sizeof(tmp));
         return;
@@ -475,7 +477,7 @@ void parseHiveAccountUpdate(uint8_t *buffer, uint32_t bufferLength, uint8_t argN
         snprintf(tmp + strlen(tmp), sizeof(tmp) - strlen(tmp), "%s || ", arg->data);
     }
 
-    if( argNum == 4) { // posting auth
+    if( argNum == 3) { // posting auth
         os_memset(arg->data, 0, sizeof(arg->data));
         os_memmove(arg->data, tmp, sizeof(tmp));
         return;
@@ -486,7 +488,7 @@ void parseHiveAccountUpdate(uint8_t *buffer, uint32_t bufferLength, uint8_t argN
     parsePublicKeyField(buffer, bufferLength, "Memo Key", arg, &read, &written);
     buffer += read; bufferLength -= read;
 
-    if( argNum == 5) return;
+    if( argNum == 4) return;
 
     os_memset(arg->data, 0, sizeof(arg->data));
 
@@ -591,6 +593,8 @@ void parseHiveCustomJson(uint8_t *buffer, uint32_t bufferLength, uint8_t argNum,
     uint32_t requiredAuths = 0;
     read = unpack_variant32(buffer, sizeof(uint32_t), &requiredAuths);
     buffer += read; bufferLength -= read;
+
+    // TODO it displays ID [] when no required auth provided, should display "Required Auth"
 
     snprintf(tmp, sizeof(tmp), "[ ");
 
