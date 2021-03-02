@@ -229,7 +229,7 @@ class Transaction:
     @staticmethod
     def parse_account_create(data):
         parameters = hexlify(Transaction.pack_fc_uint(Operation.types()["account_create"]))
-        parameters += hexlify(Transaction.parse_asset(data["amount"]))
+        parameters += hexlify(Transaction.parse_asset(data["fee"]))
         parameters += hexlify(Transaction.pack_fc_uint(len(data['creator'])) + data['creator'])
         parameters += hexlify(Transaction.pack_fc_uint(len(data['new_account_name'])) + data['new_account_name'])
         parameters += hexlify(struct.pack("<L", data['owner']['weight_threshold']))
@@ -425,7 +425,7 @@ class Transaction:
             parameters += hexlify(Transaction.parse_public_key(item[0]))
             parameters += hexlify(struct.pack("<H", item[1]))
         parameters += hexlify(Transaction.parse_public_key(data["memo_key"]))
-        parameters += hexlify(struct.pack("<L", len(data.get('extensions', []))))
+        parameters += hexlify(Transaction.pack_fc_uint(len(data['json_metadata'])) + data['json_metadata'])
         return unhexlify(parameters)
 
     @staticmethod
@@ -542,7 +542,8 @@ class Transaction:
     def parse_set_reset_account(data):
         parameters = hexlify(Transaction.pack_fc_uint(Operation.types()["set_reset_account"]))
         parameters += hexlify(Transaction.pack_fc_uint(len(data['account'])) + data['account'])
-        parameters += hexlify(Transaction.pack_fc_uint(len(data['current_reset_account'])) + data['current_reset_account'])
+        parameters += hexlify(Transaction.pack_fc_uint(len(data['current_reset_account'])) + data['current_reset_account']) 
+        parameters += hexlify(Transaction.pack_fc_uint(len(data['reset_account'])) + data['reset_account']) 
 
         return unhexlify(parameters)
 

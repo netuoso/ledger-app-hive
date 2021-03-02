@@ -103,7 +103,7 @@ static void processHiveAccountCreate(txProcessingContext_t *context) {
 }
 
 static void processHiveAccountUpdate(txProcessingContext_t *context) {
-    context->content->argumentCount = 7;
+    context->content->argumentCount = 6;
     strcpy(context->content->opName, "account_update");
 }
 
